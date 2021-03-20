@@ -1,13 +1,15 @@
 import React from "react"
 import styled from "styled-components"
+import {useDispatch, useSelector} from "react-redux";
 
 const Quiz = (props) => {
+  const list = useSelector((state) => state.quiz.list)
   
   const [num, setNum] = React.useState(0);
 
   const onClick_O = () =>{
     console.log(text_O.current.innerHTML)
-    {props.list.map((l, idx) => {
+    {list.map((l, idx) => {
       if (num === idx) {
         if (l.answer === text_O.current.innerHTML) {
           setNum(num +1)
@@ -18,7 +20,7 @@ const Quiz = (props) => {
     })}
   }
   const onClick_X = () =>{
-    {props.list.map((l, idx) => {
+    {list.map((l, idx) => {
       if (num === idx) {
         if (l.answer === text_X.current.innerHTML) {
           setNum(num +1)
@@ -32,7 +34,7 @@ const Quiz = (props) => {
   const text_X = React.createRef();
 
   if (num > 4) {
-    return <div>퀴즈 끝!</div>
+    props.history.push("/message")
   }
 
   return (
@@ -40,7 +42,7 @@ const Quiz = (props) => {
       <p>
         <span>{num + 1}번 문제</span>
       </p>
-      {props.list.map((l, idx) => {
+      {list.map((l, idx) => {
         if (num === idx) {
           return <Question key={idx}>{l.question}</Question>
         }
@@ -89,6 +91,7 @@ const Answer = styled.button`
   background-color: white;
   border: none;
   outline: none;
+  cursor: pointer;
 `;
 
 

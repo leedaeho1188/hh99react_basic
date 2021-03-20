@@ -1,17 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useSelector} from "react-redux"
 
 const Score = (props) => {
-  
+  const name = useSelector((state) => state.quiz.name)
+  const scoreMsg = useSelector((state) => state.quiz.scoreMsg)
+
+
   return (
     <ScoreContainer>
       <Text>
-        <span>{props.name}</span> 퀴즈에 <br/>
+        <span>{name}</span> 퀴즈에 <br/>
         대한 내 점수는? 
       </Text>
       <MyScore>
         <span>100</span>점
-        <p>{props.scoreMsg}</p>
+        <p>{scoreMsg}</p>
       </MyScore>
     </ScoreContainer>    
   )
