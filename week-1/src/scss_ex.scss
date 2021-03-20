@@ -1,5 +1,7 @@
+$mainColor: white;
+
 body {
-  background-color: silver;
+  background-color: #{$mainColor};
 }
 .container {
   display: flex;
@@ -45,4 +47,7 @@ body {
   border: none;
   outline: none;
   cursor: pointer;
+  &:hover{
+    font-weight: bold;
+  }
 }
