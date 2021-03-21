@@ -12,6 +12,8 @@ import { withRouter } from "react-router";
 // 리덕스 스토어와 연결하기 위해 connect라는 친구를 호출할게요!
 import { connect } from "react-redux";
 
+import {firestore} from "./firebase"
+
 const mapStateTopProps = (state) => ({
   ...state,
 });
@@ -32,11 +34,12 @@ class App extends React.Component {
     super(props);
     // App 컴포넌트의 state를 정의해줍니다.
     this.state = {
-
-
-
-
     };
+  }
+
+  componentDidMount(){
+    const quiz = firestore.collection("quiz");
+    
   }
 
   // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
