@@ -1,9 +1,32 @@
 import React from "react"
 import styled from "styled-components";
-import {useSelector, useDispatch} from "react-redux"
+import {useSelector, useDispatch} from "react-redux";
+import {resetAnswer} from "./redux/modules/quiz"
+import {getRankFB} from "./redux/modules/rank"
 
 const Ranking = (props) => {
-  const ranking = useSelector((state) => state.quiz.user_info)
+  const _ranking = useSelector((state) => state.rank.ranking)
+  const dispatch = useDispatch()
+  const user_rank = React.useRef(null)
+  
+  console.log(user_rank)
+
+  React.useEffect(() => {
+    dispatch(getRankFB())
+    if(!user_rank.current){
+      return;
+    }
+    window.scrollTo({top: user_rank.current.offsetTop, left: 0, behavior: "smooth"})
+  }, []);
+
+  const ranking = _ranking.sort((a, b) => {
+    return b.score - a.score;
+  })
+  console.log(ranking)
+
+  // if(!is_loaded){
+  //   return ()
+  // }
 
   return (
     <RankContainer>
@@ -14,21 +37,36 @@ const Ranking = (props) => {
       </Topbar>
       <RankWrap>
         {ranking.map((r, idx) => {
-          return (
-            <RankItem key={idx}>
-              <RankUser>
-                <p>
-                  <b>{r.name}</b>
-                </p>
-                <p>{r.message}</p>
-              </RankUser>
-            </RankItem>
-          );
+          if(r.current){
+            return (
+              <RankItem key={idx} highlight={true} ref={user_rank}>
+                <RankNum>{idx + 1}등</RankNum>
+                <RankUser>
+                  <p>
+                    <b>{r.name}</b>
+                  </p>
+                  <p>{r.message}</p>
+                </RankUser>
+              </RankItem>
+            );
+          } else {
+            return (
+              <RankItem key={idx}>
+                <RankNum>{idx + 1}등</RankNum>
+                <RankUser>
+                  <p>
+                    <b>{r.name}</b>
+                  </p>
+                  <p>{r.message}</p>
+                </RankUser>
+              </RankItem>
+            )};
         })}
       </RankWrap>
 
       <Button
         onClick={() => {
+          dispatch(resetAnswer())
           window.location.href = '/';
         }}
       >

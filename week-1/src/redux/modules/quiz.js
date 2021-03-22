@@ -1,67 +1,55 @@
 // widgets.js
 
 // Actions
-const LOAD = "quiz/LOAD"
-const ADD_USER_NAME= "quiz/ADD_USER_NAME"
-const ADD_USER_INFO = "quiz/ADD_USER_INFO"
+const GET_QUIZ = "quiz/GET_QUIZ"
+const ADD_ANSWER= "quiz/ADD_ANSWER"
+const RESET_ANSWER = "quiz/RESET_ANSWER"
 // const DELETE = "bucket/DELETE"
 const initialState = {
       name: '김해지',
-      user_info: [
-
-      ],
-      user_comment: "",
-      page: 'quiz',
-      list: [
+      score_texts: {
+        60: "우린 친구! 앞으로도 더 친하게 지내요! :)",
+        80: "우와! 우리는 엄청 가까운 사이!",
+        100: "둘도 없는 단짝이에요! :)",
+      },
+      answers: [],
+      quiz: [
         {question: "해지는 그림을 잘 그린다.", answer: 'O'},
         {question: "해지는 서울에 산다.", answer: 'X'},
         {question: "해지가 제일 좋아하는 음식은 칼국수이다.", answer: 'O'},
         {question: "해지의 취미는 달리기이다.", answer: 'X'},
         {question: "해지는 주식으로 돈을 벌었다.", answer: 'O'},
       ],
-      scoreMsg: '이정도면 애인보다 더 가까운사이네요..ㅎ',
     }
 
 // Action Creators
-export const loadQuiz = (quiz) => {
-    return { type: LOAD, quiz };
+export const getQuiz = (quiz_list) => {
+    return { type: GET_QUIZ, quiz_list };
 }
 
-export const addUserName = (user_name) => {
-    return {type: ADD_USER_NAME, user_name};
+export const addAnswer = (answer) => {
+  return { type: ADD_ANSWER, answer };
+};
+
+export const resetAnswer = () => {
+  return { type: RESET_ANSWER };
 }
 
-export const addUserInfo = (user_info) => {
-  return {type: ADD_USER_INFO, user_info};
-}
 
-// export const deleteBucket = (bucket) => {
-//     return {type: DELETE, bucket};
-// }
-// Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // do reducer stuff
-    case "quiz/LOAD":{
-      return state;
+    case "quiz/GET_QUIZ": {
+      return { ...state, quiz: action.quiz_list };
     }
 
-    case "quiz/ADD_USER_NAME":{
-      return { ...state, user_name: action.user_name };
+    case "quiz/ADD_ANSWER": {
+      return { ...state, answers: [...state.answers, action.answer] };
     }
 
-    case "quiz/ADD_USER_INFO":{
-      return { ...state, user_info: [...state.user_info, action.user_info]}
+    case "quiz/RESET_ANSWER": {
+      return {...state, answers: []};
     }
-
-    // case "bucket/DELETE":{
-    //   const bucket_list = state.list.filter((l, idx) => {
-    //     if(idx !== action.bucket){
-    //       return l;
-    //     }
-    //   });
-    //   return {list: bucket_list};
-    // }
 
     default:
       return state;

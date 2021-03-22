@@ -14,18 +14,6 @@ import { connect } from "react-redux";
 
 import {firestore} from "./firebase"
 
-const mapStateTopProps = (state) => ({
-  ...state,
-});
-
-// 이 함수는 값을 변화시키기 위한 액션 생성 함수를 props로 받아오기 위한 함수예요.
-const mapDispatchToProps = (dispatch) => ({
-  load: () => {
-    
-  },
-  
-});
-
 
 // 클래스형 컴포넌트는 이렇게 생겼습니다!
 class App extends React.Component {
@@ -37,15 +25,10 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount(){
-    const quiz = firestore.collection("quiz");
-    
-  }
 
   // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
   render() {
     // this 키워드를 통해 state에 접근할 수 있어요.
-    console.log(this.state);
 
       return (
       <div className="App">
@@ -58,4 +41,4 @@ class App extends React.Component {
     );
   }
 }
-export default connect(mapStateTopProps, mapDispatchToProps)(withRouter(App));
+export default (withRouter(App));

@@ -2,13 +2,13 @@ import firebase from "firebase/app"
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDT2ZSkV7z60y612nwa_UvCIjXrilsefS4",
-  authDomain: "sparta-react-2c844.firebaseapp.com",
-  projectId: "sparta-react-2c844",
-  storageBucket: "sparta-react-2c844.appspot.com",
-  messagingSenderId: "418640478960",
-  appId: "1:418640478960:web:686111333edbc7a2507835",
-  measurementId: "G-PJFLQFJDB2"
+  apiKey: "AIzaSyBeHFfdhExkmJ3wcUXZh8D21HTYUDcmBro",
+  authDomain: "sprata-react-basic-hw.firebaseapp.com",
+  projectId: "sprata-react-basic-hw",
+  storageBucket: "sprata-react-basic-hw.appspot.com",
+  messagingSenderId: "236429487975",
+  appId: "1:236429487975:web:91a584fd90d679ab0f09c2",
+  measurementId: "G-LBMLG5JEF5"
 }
 firebase.initializeApp(firebaseConfig);
 

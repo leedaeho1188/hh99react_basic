@@ -1,12 +1,20 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux"
-import {addUserInfo} from "./redux/modules/quiz"
+import {addRank, addRankFB} from "./redux/modules/rank"
 
 const Message = (props) => {
   const name = useSelector((state) => state.quiz.name)
   const dispatch = useDispatch();
   const input_text = React.useRef();
-  const user_name = useSelector((state) =>state.quiz.user_name)
+  const answers = useSelector((state) => state.quiz.answers)
+  const user_name = useSelector((state) =>state.rank.user_name)
+
+
+  let correct = answers.filter((answer) => {
+    return answer
+  })
+
+  let score = (correct.length / answers.length)*100;
 
 
   return (
@@ -63,12 +71,15 @@ const Message = (props) => {
           />
           <button
             onClick = {()=>{
-              let user_info ={
+              let rank_info ={
+                score: parseInt(score),
                 name: user_name,
-                message: input_text.current.value
+                message: input_text.current.value,
               }
-              dispatch(addUserInfo(user_info))
-              props.history.push('/ranking')
+              dispatch(addRankFB(rank_info))
+              window.setTimeout(()=> {
+                props.history.push('/ranking')
+              }, 1000)
             }}
             style={{
               padding: "8px 24px",

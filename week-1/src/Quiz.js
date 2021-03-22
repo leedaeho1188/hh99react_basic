@@ -1,39 +1,42 @@
 import React from "react"
 import styled from "styled-components"
+import Score from "./Score"
 import {useDispatch, useSelector} from "react-redux";
+import {addAnswer} from "./redux/modules/quiz"
 
 const Quiz = (props) => {
-  const list = useSelector((state) => state.quiz.list)
-  
-  const [num, setNum] = React.useState(0);
+  const quiz = useSelector((state) => state.quiz.quiz)
+  const dispatch = useDispatch();
+  const answers = useSelector((state) => state.quiz.answers)
+  const num = answers.length;
 
   const onClick_O = () =>{
-    console.log(text_O.current.innerHTML)
-    {list.map((l, idx) => {
+    {quiz.map((l, idx) => {
       if (num === idx) {
         if (l.answer === text_O.current.innerHTML) {
-          setNum(num +1)
+          dispatch(addAnswer(true))
         } else {
-          window.alert("틀렸습니다.")
+          dispatch(addAnswer(false))
         }
       }
     })}
   }
   const onClick_X = () =>{
-    {list.map((l, idx) => {
+    {quiz.map((l, idx) => {
       if (num === idx) {
         if (l.answer === text_X.current.innerHTML) {
-          setNum(num +1)
+          dispatch(addAnswer(true))
         } else {
-          window.alert("틀렸습니다.")
+          dispatch(addAnswer(false))
         }
       }
     })}
   }
-  const text_O = React.createRef();
-  const text_X = React.createRef();
+  const text_O = React.useRef();
+  const text_X = React.useRef();
 
   if (num > 4) {
+    window.alert("문제를 다 푸셨습니다.😀")
     props.history.push("/message")
   }
 
@@ -42,7 +45,7 @@ const Quiz = (props) => {
       <p>
         <span>{num + 1}번 문제</span>
       </p>
-      {list.map((l, idx) => {
+      {quiz.map((l, idx) => {
         if (num === idx) {
           return <Question key={idx}>{l.question}</Question>
         }
